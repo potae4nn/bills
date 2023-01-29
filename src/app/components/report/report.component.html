@@ -1,0 +1,46 @@
+<div class="container">
+    <h2 style="margin-top: 2%;">รายงานแสดงใบเสร็จ</h2>
+    <div class="row">
+      <div class="form-group col-3">
+        <label for="dateStart">จาก</label>
+        <input type="date" class="form-control" name="dateStart" (change)="dateChange()" [(ngModel)]="dateForm.dateStart" id="dateStart">
+      </div>
+      <div class="form-group col-3">
+        <label for="dateStart">ถึง</label>
+        <input type="date" class="form-control" name="dateEnd" (change)="dateChange()" [(ngModel)]="dateForm.dateEnd"
+          id="dateEnd">
+      </div>
+    </div>
+    <br>
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr>
+          <td style="display:none;"></td>
+          <th class="text-center">วันที่</th>
+          <th class="text-center">รหัสสมาชิก</th>
+          <th class="text-center">ชื่อ-สกุล</th>
+          <th class="text-center">จำนวนสมาชิกที่สมัคร</th>
+          <th class="text-center">ยอดรวม</th>
+          <th class="text-center">ประเภทสมาชิก</th>
+          <th class="text-center">ประเภทที่จ่าย</th>
+          <th class="text-center">ประเภทบริการ</th>
+          <th class="text-center">หลักฐานแนบ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data">
+          <td style="display:none;">{{ item.create_bill }}</td>
+          <td class="text-center">{{ item.create_bill | dateThai }}</td>
+          <td class="text-center">{{ item.user_id }}</td>
+          <td class="text-center">{{ item.user_name }}</td>
+          <td class="text-center">{{ item.quantity_users }}</td>
+          <td class="text-center">{{ item.price }}</td>
+          <td class="text-center">{{ item.user_type }}</td>
+          <td class="text-center">{{ item.name_price }}</td>
+          <td class="text-center">{{ item.name_type }}</td>
+          <td class="text-center"><img loading="lazy" style="border-radius: 5px;" src="{{urlImage}}/{{item.image}}" width="150"
+              height="200" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

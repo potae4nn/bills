@@ -1,0 +1,72 @@
+<div class="container" style="margin-top: 2%;">
+    <form #userSendBill="ngForm" (ngSubmit)="onSubmit($event)">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="userId" id="userId" placeholder="รหัสพนักงาน/รหัสนักศึกษา"
+                [(ngModel)]="formUser.user_id" (ngModelChange)="onPercentChange($event)" required #user_id="ngModel">
+            <label for="userId">รหัสพนักงาน/รหัสนักศึกษา/รหัสสมาชิก</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input disabled type="text" class="form-control" name="user_name" id="user_name" placeholder="ชื่อ-สกุล"
+                [(ngModel)]="formUser.user_name" required #user_name="ngModel">
+            <label for="user_name">ชื่อ-สกุล</label>
+        </div>
+        <label for="type_user_id">ประเภทสมาชิก</label>
+        <select class="form-select form-select" name="type_user_id" #type_user_id (change)="onChangeTypeUser($event)"
+            required aria-label=".form-select-lg example">
+            <option selected>--กรุณาเลือกประเภทสมาชิก--</option>
+            <option *ngFor="let item of typeUser" [value]="item.id">{{item.name}}</option>
+        </select>
+        <label for="bill_type_id">อัตราค่าบริการ</label>
+        <select class="form-select form-select" name="bill_type_id" (change)="onChange()" required
+            #bill_type_id="ngModel" [(ngModel)]="formUser.bill_type_id" aria-label=".form-select-lg example">
+            <option [value]="" selected>--กรุณาเลือกอัตราค่าบริการ--</option>
+            <option *ngFor="let item of typeBill" [value]="item.id">{{item.name_type}}</option>
+        </select>
+        <label for="quantity_users">โอนเงินสำหรับ/จำนวนคน</label>
+        <select class="form-select form-select" name="quantity_users" (change)="onChange()" required
+            #quantity_users="ngModel" [(ngModel)]="formUser.quantity_users" aria-label=".form-select-lg example">
+            <option *ngFor="let items of number" [value]="items">{{items}}</option>
+        </select>
+        <div *ngIf="formUser.quantity_users > 1" class="form-floating md-3">
+            <div *ngFor="let item of numberInput;let i = index">
+                <label for="price">สมาชิกท่านที่ {{i+1}}</label>
+                <input type="text" class="form-control" id="inputMember{{i}}"
+                    placeholder="รหัสสมาชิก" required>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-floating md-3">
+            <input type="number" disabled class="form-control" name="price" [(ngModel)]="formUser.price" id="price"
+                placeholder="รวมจำนวนเงิน" required>
+            <label for="price">รวมจำนวนเงิน</label>
+        </div>
+        <br>
+
+
+        <!-- <div class="col"> -->
+        <div class="form-group">
+            <label for="image">แนบใบเสร็จ</label>
+            <input class="form-control form-control" name="images" id="images" type='file' accept="image/*"
+                (change)="readURL($event);" #imagesFile [(ngModel)]="formUser.image" required #images="ngModel"><br>
+            <div *ngIf="imageSrcShow" class="form-group" style="display: flex;justify-content: center;">
+                <div>
+                    <img class="center image" [src]="imageSrcShow" alt="your image" />
+                </div>
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                        (click)="resetImageScr()" class="close-image bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+        <div class="d-grid gap-2" style="margin-top: 5%; margin-bottom: 14%;">
+            <input type="submit" [disabled]="!userSendBill.valid" class="btn btn-primary" value="ส่ง">
+        </div>
+
+    </form>
+</div>

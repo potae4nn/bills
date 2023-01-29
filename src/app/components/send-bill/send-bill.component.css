@@ -1,0 +1,25 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-top: 10px; */
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px ;
+}
+
+.close-image {
+    justify-content: right;
+    display: flex;
+    color: #ffffff;
+    background-color: #b62227;
+    font-size: 1.7rem;
+    cursor: pointer;
+    position: absolute;
+    margin-left: -34px;
+    margin-top: 8px;
+    border-radius: 50px;
+}
